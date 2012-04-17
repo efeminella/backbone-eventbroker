@@ -33,7 +33,7 @@ var UserEditor = Backbone.View.extend({
 ### Creating namespaced EventBrokers
 The `EventBroker` API can be used to create and retrieve any number of specific namespaced `EventBrokers`. A namespaced `EventBroker` ensures that all events are published and subscribed against a specific namespace.
 
-Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get(*namespace*)`. If an `EventBroker` has not been created for the given namespace, it will be created and returned. All subsequent retrievals will return the same `EventBroker` instance for the specified namespace; i.e. only one unique `EventBroker` is created per namespace.
+Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get([namespace])`. If an `EventBroker` has not been created for the given namespace, it will be created and returned. All subsequent retrievals will return the same `EventBroker` instance for the specified namespace; i.e. only one unique `EventBroker` is created per namespace.
 
 ``` javascript
 var Users = Backbone.Collection.extend{{
@@ -113,14 +113,14 @@ var Users = Backbone.Collection.extend(
 	           'user:deselect' : 'deselect',
 	           'user:edit'     : 'edit',
 	           'user:update'   : 'update',
-            'user:remove'   : 'remove'  
+               'user:remove'   : 'remove'  
 	       }, this );
     },
     select: function() { ... },
     deselect: function() { ... },
     edit: function() { ... },
     update: function() { ... },
-    remove: function() { ... }å
+    remove: function() { ... }
 });
 ```
 
