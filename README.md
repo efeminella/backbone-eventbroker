@@ -3,6 +3,7 @@ Provides a general purpose Event Broker implementation to Backbone based on the 
 
 ### Basic Usage
 The `EventBroker` can be used directly to publish and subscribe to events of interest:
+
 ``` javascript
 var Users = Backbone.Collection.extend{{
     broker: Backbone.EventBroker,
@@ -27,7 +28,6 @@ var UserEditor = Backbone.View.extend({
     }
 };
 // ...
-   
 ``` 
 
 ### Creating namespaced EventBrokers
@@ -62,7 +62,6 @@ var UserEditor = Backbone.View.extend({
         this.usersBroker.trigger('add', user);
     }
 };
-   
 ```
 
 Since namespaced `EventBrokers` ensure events are only piped thru the `EventBroker` of the given namespace, it is not necessary to prefix event names with the specific namespace to which they belong. While this can simplify implementation code, you can still prefix event names to aid in readability if desired.
@@ -96,7 +95,6 @@ var UserEditor = Backbone.View.extend({
         this.usersBroker.trigger('users:add', user);
     }
 };
-   
 ```
 
 ### Registering Interests
@@ -124,7 +122,6 @@ var Users = Backbone.Collection.extend(
     update: function() { ... },
     remove: function() { ... }å
 });
-  
 ```
 
 Alternately, Modules can simply define an "interests" property containing particular event/callback mappings of interests and register themselves with an `EventBroker`
@@ -152,5 +149,4 @@ var Users = Backbone.Collection.extend(
     update: function() { ... },
     remove: function() { ... }
 });
-  
 ```
