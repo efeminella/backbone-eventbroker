@@ -1,7 +1,7 @@
-##EventBroker API
+## EventBroker API
 Provides a general purpose Event Broker implementation to Backbone based on the Backbone Events API. The EventBroker can be used directly to serve as a centralized event management mechanism for an entire application. Additional, context specific, namespaced brokers can also be created in order to provide unique brokers within a particular part of an application.
 
-###Basic Usage
+### Basic Usage
 The `EventBroker` can be used directly to publish and subscribe to events of interest:
 ``` javascript
 var Users = Backbone.Collection.extend{{
@@ -30,7 +30,7 @@ var UserEditor = Backbone.View.extend({
    
 ``` 
 
-###Creating namespaced EventBrokers
+### Creating namespaced EventBrokers
 The `EventBroker` API can be used to create and retrieve any number of specific namespaced `EventBrokers`. A namespaced `EventBroker` ensures that all events are published and subscribed against a specific namespace.
 
 Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get(<i>namespace</i>)`. If an `EventBroker` has not been created for the given namespace, it will be created and returned. All subsequent retrievals will return the same `EventBroker` instance for the specified namespace; i.e. only one unique `EventBroker` is created per namespace.
@@ -99,7 +99,7 @@ var UserEditor = Backbone.View.extend({
    
 ```
 
-###Registering Interests###
+### Registering Interests
 Modules can register events of interest with an `EventBroker` via the default 'on' method or the `register` method. The `register` method allows for registering multiple event/callback mappings for a given context in a manner similar to that of the [events hash](http://documentcloud.github.com/backbone/#View-extend "Title") in a Backbone.View.
 
 ``` javascript
