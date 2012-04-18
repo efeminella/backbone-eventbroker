@@ -27,7 +27,7 @@
 				  interests = interests.interests;
 			}
 			for ( var event in interests ) {
-                broker[ method ]( event, context[ interests[event] ], context );
+				broker[ method ]( event, context[ interests[event] ], context );
 			} 
 			return broker;	
 		};
