@@ -1,5 +1,5 @@
 ## EventBroker API
-Provides a general purpose Backbone Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title"). The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Additional, context specific, namespaced brokers can also be created in order to provide unique brokers within a particular part of an application.
+Provides a general purpose [Backbone](http://documentcloud.github.com/backbone/ "Title") Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title"). The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Additional namespaced brokers can also be created in order to provide context specific brokers within a particular part of an application.
 
 ### Basic Usage
 The `EventBroker` can be used directly to publish and subscribe to events of interest:
