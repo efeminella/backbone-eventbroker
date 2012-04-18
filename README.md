@@ -172,7 +172,7 @@ var CartView = Backbone.View.extend(
     {
            // register events/callbacks with 'items' EventBroker...
 	       this.itemsBroker.register({
-	           'add'      : 'select',
+	           'add'      : 'add',
 	           'update'   : 'update',
                'remove'   : 'remove'  
 	       }, this );
@@ -217,7 +217,7 @@ EventBroker.has( 'permissions' ); //false
 
 
 ### Destroying all EventBrokers
-To destroy all existing `EventBrokers`, invoke the `destroy` method with no arguments or 'all':
+To destroy all existing `EventBrokers`, invoke the `destroy` method with no arguments:
 
 ``` javascript
 // deletes the event broker for the given namespace
@@ -225,7 +225,7 @@ var EventBroker = Backbone.EventBroker;
 EventBroker.get( 'permissions' );
 EventBroker.get( 'users' );
 EventBroker.get( 'roles' );
-EventBroker.destroy( 'all' );
+EventBroker.destroy();
 
 EventBroker.has( 'permissions' ); //false
 EventBroker.has( 'users' ); //false
