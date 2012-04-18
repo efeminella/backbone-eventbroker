@@ -1,5 +1,5 @@
 ## EventBroker API
-Provides a general purpose Backbone Event Broker implementation  based on the Backbone Events API. The EventBroker can be used directly to serve as a centralized event management mechanism for an entire application. Additional, context specific, namespaced brokers can also be created in order to provide unique brokers within a particular part of an application.
+Provides a general purpose Backbone Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title"). The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Additional, context specific, namespaced brokers can also be created in order to provide unique brokers within a particular part of an application.
 
 ### Basic Usage
 The `EventBroker` can be used directly to publish and subscribe to events of interest:
@@ -103,7 +103,7 @@ var UserEditor = Backbone.View.extend({
 ```
 
 ### Registering Interests
-Modules can register events of interest with an `EventBroker` via the default 'on' method or the `register` method. The `register` method allows for registering multiple event/callback mappings for a given context in a manner similar to that of the [events hash](http://documentcloud.github.com/backbone/#View-extend "Title") in a Backbone.View.
+Modules can register events of interest with an `EventBroker` via the default '[on](http://documentcloud.github.com/backbone/#Events-on "Title")' method or the `register` method. The `register` method allows for registering multiple event/callback mappings for a given context in a manner similar to that of the [events hash](http://documentcloud.github.com/backbone/#View-extend "Title") in a Backbone.View.
 
 ``` javascript
 // Register event/callbacks based on a hash and associated context
