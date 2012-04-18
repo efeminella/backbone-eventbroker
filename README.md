@@ -152,23 +152,42 @@ var Users = Backbone.Collection.extend(
 ```
 
 ### Determining if an EventBroker has been created
-To test if an `EventBroker` has been created for a given `namespace`, simply invoke the `has` method:
+To test if an `EventBroker` has been created for a given `namespace`, invoke the `has` method:
 
 ``` javascript
 // determines if an event broker for the given namespace exists
-Backbone.EventBroker.get( 'roles' );
-Backbone.EventBroker.has( 'roles' ); //true
+var EventBroker = Backbone.EventBroker;
+EventBroker.get( 'roles' ); // returns the 'roles' EventBroker
 
-Backbone.EventBroker.has( 'roles' ); //false
+EventBroker.has( 'roles' ); //true
+EventBroker.has( 'users' ); //false
 ```
 
 
 ### Destroying an EventBroker
-To test if an `EventBroker` has been created for a given `namespace`, simply invoke the `has` method:
+To destroy an existing `EventBroker` for a given `namespace`, invoke the `destroy` method:
 
 ``` javascript
 // deletes the event broker for the given namespace
-Backbone.EventBroker.get( 'permissions' );
-Backbone.EventBroker.destroy( 'permissions' );
-Backbone.EventBroker.has( 'permissions' ); //false
+var EventBroker = Backbone.EventBroker;
+EventBroker.get( 'permissions' );
+EventBroker.destroy( 'permissions' ); // returns the 'permissions' EventBroker
+EventBroker.has( 'permissions' ); //false
+```
+
+
+### Destroying all EventBrokers
+To destroy all existing `EventBrokers`, invoke the `destroy` method with no arguments or 'all':
+
+``` javascript
+// deletes the event broker for the given namespace
+var EventBroker = Backbone.EventBroker;
+EventBroker.get( 'permissions' );
+EventBroker.get( 'users' );
+EventBroker.get( 'roles' );
+EventBroker.destroy( 'all' );
+
+EventBroker.has( 'permissions' ); //false
+EventBroker.has( 'users' ); //false
+EventBroker.has( 'roles' ); //false
 ```
