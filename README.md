@@ -156,7 +156,10 @@ To test if an EventBroker has been created for a given namespace, simply invoke 
 
 ``` javascript
 // determines if an event broker for the given namespace exists
-Backbone.EventBroker.has( 'something' );
+Backbone.EventBroker.get( 'roles' );
+Backbone.EventBroker.has( 'roles' ); //true
+
+Backbone.EventBroker.has( 'roles' ); //false
 ```
 
 
@@ -165,5 +168,7 @@ To test if an EventBroker has been created for a given namespace, simply invoke 
 
 ``` javascript
 // deletes the event broker for the given namespace
-Backbone.EventBroker.destroy( 'something' );
+Backbone.EventBroker.get( 'permissions' );
+Backbone.EventBroker.destroy( 'permissions' );
+Backbone.EventBroker.has( 'permissions' ); //false
 ```
