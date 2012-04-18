@@ -152,6 +152,7 @@ var Users = Backbone.Collection.extend(
 ```
 
 Modules can use different namespaced `EventBrokers` for different things...
+
 ``` javascript
 // Register event/callbacks based on a hash and associated context
 var CartView = Backbone.View.extend( 
