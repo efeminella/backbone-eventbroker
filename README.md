@@ -6,9 +6,9 @@ The `EventBroker` can be used directly to publish and subscribe to events of int
 
 ``` javascript
 var Users = Backbone.Collection.extend{{
-    broker: Backbone.EventBroker,
     initialize: function(){
-        this.broker.on('users:add', this.add, this);
+        // subscribe to an event ...
+        Backbone.EventBroker.on('users:add', this.add, this);
     },
     add: function(user) {
         console.log(user.id);
@@ -17,14 +17,13 @@ var Users = Backbone.Collection.extend{{
 
 var UserEditor = Backbone.View.extend({
      el: '#editor',
-     broker: Backbone.EventBroker,
      initialize: function(broker){
         this.$userId = this.$('#userId');
      },
      add: function() {
-        // publish an event
+        // publish an event ...
         var user = new User({id: this.$userId().val()});
-        this.broker.trigger('user:add', user);
+        Backbone.EventBroker.trigger('user:add', user);
     }
 };
 // ...
@@ -39,6 +38,7 @@ Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get([namespace
 var Users = Backbone.Collection.extend{{
     // use the 'users' broker
     userBroker: Backbone.EventBroker.get('users'),
+    
     initialize: function(broker){
         this.userBroker.on('add', this.add, this);
     },
@@ -51,8 +51,10 @@ var UserEditor = Backbone.View.extend({
     el: '#editor',
     // use the 'users' broker
     usersBroker: Backbone.EventBroker.get('users'),
+    
     // also use the 'roles' broker
     rolesBroker : Backbone.EventBroker.get('roles'),
+    
     initialize: function(broker){
         this.$userId = this.$('#userId');
     },
@@ -83,8 +85,10 @@ var UserEditor = Backbone.View.extend({
     el: '#editor',
     // use the 'users' broker
     usersBroker: Backbone.EventBroker.get('users'),
+    
     // also use the unique 'roles' broker
     rolesBroker: Backbone.EventBroker.get('roles'),
+    
     initialize: function(broker){
         this.$userId = this.$('#userId');
     },
@@ -154,19 +158,24 @@ var Users = Backbone.Collection.extend(
 Modules can use different namespaced `EventBrokers` for different things...
 
 ``` javascript
-// Register event/callbacks based on a hash and associated context
+// Register event/callbacks with different EventBrokers...
 var CartView = Backbone.View.extend( 
 {
+    // Reference the 'items' EventBroker...
     itemsBroker: Backbone.EventBroker.get('items'),
+    
+    // Reference the 'inventory' EventBroker...
 	inventoryBroker: Backbone.EventBroker.get('inventory'),
 	
     initialize: function() 
     {
+           // register events/callbacks with 'items' EventBroker...
 	       this.itemsBroker.register({
 	           'add'      : 'select',
 	           'update'   : 'update',
                'remove'   : 'remove'  
 	       }, this );
+	       // register events/callbacks with 'inventory' EventBroker...
 	       this.inventoryBroker.register({
 	           'select'   : 'select',
 	           'deselect' : 'deselect',
