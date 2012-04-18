@@ -151,6 +151,36 @@ var Users = Backbone.Collection.extend(
 });
 ```
 
+Modules can use different namespaced `EventBrokers` for different things...
+``` javascript
+// Register event/callbacks based on a hash and associated context
+var CartView = Backbone.View.extend( 
+{
+    itemsBroker: Backbone.EventBroker.get('items'),
+	inventoryBroker: Backbone.EventBroker.get('inventory'),
+	
+    initialize: function() 
+    {
+	       this.itemsBroker.register({
+	           'add'      : 'select',
+	           'update'   : 'update',
+               'remove'   : 'remove'  
+	       }, this );
+	       this.inventoryBroker.register({
+	           'select'   : 'select',
+	           'deselect' : 'deselect',
+	           'edit'     : 'edit'
+	       }, this );
+    },
+    add: function() { ... },
+    update: function() { ... },
+    remove: function() { ... },
+    select: function() { ... },
+    deselect: function() { ... },
+    edit: function() { ... }
+});
+```
+
 ### Determining if an EventBroker has been created
 To test if an `EventBroker` has been created for a given `namespace`, invoke the `has` method:
 
@@ -158,7 +188,6 @@ To test if an `EventBroker` has been created for a given `namespace`, invoke the
 // determines if an event broker for the given namespace exists
 var EventBroker = Backbone.EventBroker;
 EventBroker.get( 'roles' ); // returns the 'roles' EventBroker
-
 EventBroker.has( 'roles' ); //true
 EventBroker.has( 'users' ); //false
 ```
