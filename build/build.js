@@ -5,12 +5,11 @@ var parser = require( 'uglify-js' ).parser,
     src    = '../src/backbone-eventbroker.js',
     built  = '../backbone-eventbroker-min.js';
 
-var _build = function()
+var _build = function() 
 {
 	console.log( 'Loading  ' + src );
 	
-	fs.readFile( src, 'utf8', function ( error, data )
-	{
+	fs.readFile( src, 'utf8', function ( error, data ) {
 	    if ( error ) {
 		    return console.log( 'Error' + error );
 	    } 
@@ -18,13 +17,12 @@ var _build = function()
 	});
 };
 
-var _minify = function( source )
-{
+var _minify = function( source ) {
 	var ast = uglify.ast_squeeze( uglify.ast_mangle( parser.parse( source ) ) );
 	return uglify.gen_code( ast );
 };
 
-var _write = function( min )
+var _write = function( min ) 
 {
 	fs.writeFile( built, min, function( error ) {
 		if ( error ) {

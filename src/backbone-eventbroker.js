@@ -23,21 +23,21 @@
 		var _registration = function( interests, context, broker, method )
 		{
 			if ( !context && interests.interests ) {
-	              context   = interests;
-	              interests = interests.interests;
+                  context   = interests;
+                  interests = interests.interests;
 			}
 			for ( var event in interests ) {
-				broker[ method ]( event, context[ interests[event] ], context );
+                broker[ method ]( event, context[ interests[event] ], context );
 			} 
 			return broker;	
 		};
 		
 		/*
-		 * Defines an Event registry API which allows for registering and unregistering
-		 * multiple events/callbacks. The API is similar to Backbone.Events.on in that
-		 * it maps events to callbacks as well as a context. The main difference is that
-		 * mutliple event / callback mappings can be created as one-to-one mappings for
-		 * a given context.
+		 * Defines an Event registry which allows for registering and unregistering
+		 * multiple events/callbacks. This API is similar to Backbone.Events.on in 
+		 * that it maps events to callbacks as well as a context. The main difference 
+		 * is that mutliple event / callback mappings can be created as one-to-one 
+		 * mappings for a given context.
 		 */
 		var EventRegistry = 
 		{
