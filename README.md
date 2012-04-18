@@ -109,11 +109,9 @@ Modules can register events of interest with an `EventBroker` via the default '[
 // Register event/callbacks based on a hash and associated context
 var Users = Backbone.Collection.extend( 
 {
-    broker: Backbone.EventBroker,
-
     initialize: function() 
     {
-	       this.broker.register({
+	       Backbone.EventBroker.register({
 	           'user:select'   : 'select',
 	           'user:deselect' : 'deselect',
 	           'user:edit'     : 'edit',
