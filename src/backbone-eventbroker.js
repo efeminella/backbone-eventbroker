@@ -23,8 +23,8 @@
 		var _registration = function( interests, context, broker, method )
 		{
 			if ( !context && interests.interests ) {
-                  context   = interests;
-                  interests = interests.interests;
+				  context   = interests;
+				  interests = interests.interests;
 			}
 			for ( var event in interests ) {
                 broker[ method ]( event, context[ interests[event] ], context );
