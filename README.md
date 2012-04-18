@@ -152,7 +152,7 @@ var Users = Backbone.Collection.extend(
 ```
 
 ### Determining if an EventBroker has been created
-To test if an EventBroker has been created for a given namespace, simply invoke the 'has' method:
+To test if an `EventBroker` has been created for a given `namespace`, simply invoke the `has` method:
 
 ``` javascript
 // determines if an event broker for the given namespace exists
@@ -164,7 +164,7 @@ Backbone.EventBroker.has( 'roles' ); //false
 
 
 ### Destroying an EventBroker
-To test if an EventBroker has been created for a given namespace, simply invoke the 'has' method:
+To test if an `EventBroker` has been created for a given `namespace`, simply invoke the `has` method:
 
 ``` javascript
 // deletes the event broker for the given namespace
