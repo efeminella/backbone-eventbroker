@@ -23,7 +23,7 @@ var UserEditor = Backbone.View.extend({
      add: function() {
         // publish an event ...
         var user = new User({id: this.$userId().val()});
-        Backbone.EventBroker.trigger('user:add', user);
+        Backbone.EventBroker.trigger('users:add', user);
     }
 };
 // ...
@@ -37,10 +37,10 @@ Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get([namespace
 ``` javascript
 var Users = Backbone.Collection.extend{{
     // use the 'users' broker
-    userBroker: Backbone.EventBroker.get('users'),
+    usersBroker: Backbone.EventBroker.get('users'),
     
     initialize: function(broker){
-        this.userBroker.on('add', this.add, this);
+        this.usersBroker.on('add', this.add, this);
     },
     add: function(user) {
         console.log(user.id);
@@ -72,6 +72,7 @@ Since namespaced `EventBrokers` ensure events are only piped thru the `EventBrok
 var Users = Backbone.Collection.extend{{
     // use the 'users' broker
     userBroker: Backbone.EventBroker.get('users'),
+    
     initialize: function(broker){
         // prefix the namespace if desired
         this.userBroker.on('users:add', this.add, this);
