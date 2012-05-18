@@ -1,4 +1,16 @@
-  /*
+/**
+ * Backbone Eventbroker v0.1.0
+ *
+ * Copyright (c) 2012 Eric Feminella, Sven Lito
+ *
+ * License and more information at:
+ * http://code.ericfeminella.com/license/LICENSE.txt
+ */
+;(function($, _, Backbone) {
+
+  "use strict";
+
+    /*
    * The Backbone.EventBroker adds a general purpose Event Broker implementation
    * to Backbone based on the Backbone Events API. The EventBroker can be used
    * directly to serve as a centralized event management mechanism for an entire
@@ -211,3 +223,21 @@
     }, Backbone.Events, EventRegistry );
 
   }());
+
+
+  //EXPORTS
+  //AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
+  //If using RequireJS to load Backbone, Underscore and jQuery, use the AMD-specific file
+  if (typeof define === 'function' && define.amd) {
+    return define(function() {
+      return Backbone.EventBroker;
+    });
+  }
+
+  //CommonJS (NodeJS)
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = Backbone.EventBroker;
+    return;
+  }
+
+}(jQuery, _, Backbone));
