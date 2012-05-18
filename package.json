@@ -1,0 +1,9 @@
+{
+  "name": "backbone-eventbroker",
+  "version": "0.1.0",
+  "authors": [
+    "Eric Feminella <eric@ericfeminella.com>",
+    "Sven Lito <me@svenlito.com>"
+  ],
+  "main": "./src/backbone-eventbroker.js"
+}

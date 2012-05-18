@@ -1,4 +1,26 @@
-  /*
+/**
+ * Backbone Eventbroker v0.1.0
+ *
+ * NOTE:
+ * This version is for use with RequireJS
+ * If using regular <script> tags to include your files, use backbone-memory.min.js
+ *
+ * Copyright (c) 2012 Eric Feminella, Sven Lito
+ *
+ * License and more information at:
+ * http://code.ericfeminella.com/license/LICENSE.txt
+ */
+define([
+  'jquery',
+  'backbone',
+  'underscore'
+],
+
+function($, Backbone, _) {
+
+  "use strict";
+
+    /*
    * The Backbone.EventBroker adds a general purpose Event Broker implementation
    * to Backbone based on the Backbone Events API. The EventBroker can be used
    * directly to serve as a centralized event management mechanism for an entire
@@ -211,3 +233,9 @@
     }, Backbone.Events, EventRegistry );
 
   }());
+
+
+  //Exports
+  return Backbone.EventBroker;
+
+});
