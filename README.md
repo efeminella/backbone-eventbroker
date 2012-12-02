@@ -1,5 +1,7 @@
 ## EventBroker API
-Provides a general purpose [Backbone](http://documentcloud.github.com/backbone/ "Title") Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title"). The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Additional namespaced brokers can also be created in order to provide context specific brokers within a particular part of an application.
+Provides a general purpose [Backbone](http://documentcloud.github.com/backbone/ "Title") Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title"). 
+
+The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Namespaced brokers can also be created in order to provide context specific brokers within an application.
 
 ### Basic Usage
 The `EventBroker` can be used directly to publish and subscribe to events of interest:
@@ -159,7 +161,7 @@ var CartView = Backbone.View.extend({
     itemsBroker: Backbone.EventBroker.get('items'),
 
     // Reference the 'inventory' EventBroker...
-  inventoryBroker: Backbone.EventBroker.get('inventory'),
+    inventoryBroker: Backbone.EventBroker.get('inventory'),
 
     initialize: function() {
       // register events/callbacks with 'items' EventBroker...
@@ -190,9 +192,9 @@ To test if an `EventBroker` has been created for a given `namespace`, invoke the
 ``` javascript
 // determines if an event broker for the given namespace exists
 var EventBroker = Backbone.EventBroker;
-EventBroker.get( 'roles' ); // returns the 'roles' EventBroker
-EventBroker.has( 'roles' ); //true
-EventBroker.has( 'users' ); //false
+EventBroker.get('roles'); // returns the 'roles' EventBroker
+EventBroker.has('roles'); //true
+EventBroker.has('users'); //false
 ```
 
 
@@ -202,9 +204,9 @@ To destroy an existing `EventBroker` for a given `namespace`, invoke the `destro
 ``` javascript
 // deletes the event broker for the given namespace
 var EventBroker = Backbone.EventBroker;
-EventBroker.get( 'permissions' );
-EventBroker.destroy( 'permissions' ); // returns the 'permissions' EventBroker
-EventBroker.has( 'permissions' ); //false
+EventBroker.get('permissions');
+EventBroker.destroy('permissions'); // returns the 'permissions' EventBroker
+EventBroker.has('permissions'); //false
 ```
 
 
@@ -214,12 +216,12 @@ To destroy all existing `EventBrokers`, invoke the `destroy` method with no argu
 ``` javascript
 // deletes the event broker for the given namespace
 var EventBroker = Backbone.EventBroker;
-EventBroker.get( 'permissions' );
-EventBroker.get( 'users' );
-EventBroker.get( 'roles' );
+EventBroker.get('permissions'); // returns the 'permissions' EventBroker
+EventBroker.get('users'); // returns the 'users' EventBroker
+EventBroker.get('roles'); // returns the 'roles' EventBroker
 EventBroker.destroy();
 
-EventBroker.has( 'permissions' ); //false
-EventBroker.has( 'users' ); //false
-EventBroker.has( 'roles' ); //false
+EventBroker.has('permissions' ); //false
+EventBroker.has('users'); //false
+EventBroker.has('roles'); //false
 ```
