@@ -1,7 +1,7 @@
 describe( "Backbone.EventBroker", function() {
 
   beforeEach( function() {
-    this.addMatchers({
+    addMatchers({
       toStrictlyEqual: function( expected ) {
         return this.actual === expected;
       }
