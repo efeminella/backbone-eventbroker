@@ -1,28 +1,21 @@
-/**
+/*
  * Backbone Eventbroker v{{version}}
  *
- * NOTE:
  * This version is for use with RequireJS
  * If using regular <script> tags to include your files, use backbone-memory.min.js
  *
- * Copyright (c) 2012 Eric Feminella, Sven Lito
+ * Copyright (c) 2012  - 2013 Eric Feminella, Sven Lito
+ * License and more information at: http://code.ericfeminella.com/license/LICENSE.txt
  *
- * License and more information at:
- * http://code.ericfeminella.com/license/LICENSE.txt
  */
-define([
-  'jquery',
-  'backbone',
-  'underscore'
-],
+define( function($, Backbone, _) {
+    var _ = require('underscore')
+      , $ = require('jquery')
+      , Backbone = require('backbone')
 
-function($, Backbone, _) {
+    "use strict";
 
-  "use strict";
-
-  {{body}}
-
-  //Exports
-  return Backbone.EventBroker;
-
+{{body}}
+    // exports
+    return Backbone.EventBroker;
 });
