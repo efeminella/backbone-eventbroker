@@ -24,15 +24,20 @@
          * Implements the registering and unregistering of event/callback mappings
          * for specific objects registered with an EventBroker.
          */
-        var _registration = function( interests, context, broker, method ) {
-            var event;
+        var _registration = function(interests, context, broker, method) {
+            var event, callback;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
             for ( event in interests ) {
                 if ( interests.hasOwnProperty(event) ) {
-                    broker[method]( event, context[interests[event]], context );
+                    callback = context[interests[event]]
+                    if ( _.isFunction(callback) ) {
+                        broker[method](event, callback, context);
+                    } else {
+                        throw new Error('method \'' + interests[event] + '\' not found for event \'' + event + '\'');
+                    }
                 }
             }
             return broker;
@@ -211,16 +216,16 @@
             }
         }, Backbone.Events, EventRegistry );
     }());
-    //EXPORTS
-    //AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
-    //If using RequireJS to load Backbone, Underscore and jQuery, use the AMD-specific file
+    // exports ...
+    // AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
+    // If using RequireJS to load Backbone, Underscore and jQuery, use the AMD-specific file
     if (typeof define === 'function' && define.amd) {
         return define(function() {
             return Backbone.EventBroker;
         });
     }
 
-    //CommonJS (NodeJS)
+    // CommonJS (node)
     if (typeof module === 'object' && typeof module.exports === 'object') {
         module.exports = Backbone.EventBroker;
         return;

@@ -15,15 +15,20 @@
          * Implements the registering and unregistering of event/callback mappings
          * for specific objects registered with an EventBroker.
          */
-        var _registration = function( interests, context, broker, method ) {
-            var event;
+        var _registration = function(interests, context, broker, method) {
+            var event, callback;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
             for ( event in interests ) {
                 if ( interests.hasOwnProperty(event) ) {
-                    broker[method]( event, context[interests[event]], context );
+                    callback = context[interests[event]]
+                    if ( _.isFunction(callback) ) {
+                        broker[method](event, callback, context);
+                    } else {
+                        throw new Error('method \'' + interests[event] + '\' not found for event \'' + event + '\'');
+                    }
                 }
             }
             return broker;

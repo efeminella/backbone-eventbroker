@@ -8,16 +8,16 @@
 ;(function($, _, Backbone) {
     "use strict";
     {{body}}
-    //EXPORTS
-    //AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
-    //If using RequireJS to load Backbone, Underscore and jQuery, use the AMD-specific file
+    // exports ...
+    // AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
+    // If using RequireJS to load Backbone, Underscore and jQuery, use the AMD-specific file
     if (typeof define === 'function' && define.amd) {
         return define(function() {
             return Backbone.EventBroker;
         });
     }
 
-    //CommonJS (NodeJS)
+    // CommonJS (node)
     if (typeof module === 'object' && typeof module.exports === 'object') {
         module.exports = Backbone.EventBroker;
         return;
