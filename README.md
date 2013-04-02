@@ -1,8 +1,8 @@
 ## EventBroker API
 Provides a general purpose [Backbone](http://documentcloud.github.com/backbone/ "Title") Event Broker implementation based on the Backbone [Events API](http://documentcloud.github.com/backbone/#Events "Title").
 
-Run the [Specs](http://htmlpreview.github.com/?https://github.com/efeminella/backbone-eventbroker/blob/master/spec/spec-runner.html "Title")
- or [Example](http://htmlpreview.github.com/?https://github.com/efeminella/backbone-eventbroker/blob/master/examples/basic/index.html "Title")
+Run the <a href="http://htmlpreview.github.com/?https://github.com/efeminella/backbone-eventbroker/blob/master/spec/spec-runner.html" target="_blank">Specs</a>
+ / <a href="http://htmlpreview.github.com/?https://github.com/efeminella/backbone-eventbroker/blob/master/examples/basic/index.html" target="_blank">Example</a>
 
 The `EventBroker` can be used directly to serve as a centralized event management mechanism for an entire application. Namespaced brokers can also be created in order to provide context specific brokers within an application.
 
