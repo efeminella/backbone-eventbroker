@@ -108,7 +108,7 @@ var UserEditor = Backbone.View.extend({
 ```
 
 ### Registering Interests
-Modules can register events of interest with an `EventBroker` via the default '[on](http://documentcloud.github.com/backbone/#Events-on "Title")' method or the `register` method. The `register` method allows for registering multiple event/callback mappings for a given context in a manner similar to that of the [events hash](http://documentcloud.github.com/backbone/#View-extend "Title") in a Backbone.View.
+Modules can register events of interest with an `EventBroker` via the default '[on](http://documentcloud.github.com/backbone/#Events-on "Title")' method or the `register` method. The `register` method allows for registering multiple event/callback mappings declaratively for a given context in a manner similar to that of the [events hash](http://documentcloud.github.com/backbone/#View-extend "Title") in a Backbone.View.
 
 ``` javascript
 // Register event/callbacks based on a hash and associated context
@@ -130,7 +130,7 @@ var Users = Backbone.Collection.extend({
 });
 ```
 
-Alternately, Modules can simply define an "interests" property containing particular event/callback mappings of interests and register themselves with an `EventBroker`
+Alternatively, modules can define an "interests" property which provides specific event/callback mappings, allowing for declarative registration with an `EventBroker`:
 
 ``` javascript
 // Register event/callbacks based on a hash and associated context
@@ -154,6 +154,7 @@ var Users = Backbone.Collection.extend({
     remove: function() { ... }
 });
 ```
+As of version 1.0.0, if a given callback is not a function, the EventBroker will throw an exception, similar to declaratively mapping an event callback in a Backbone.View.
 
 Modules can use different namespaced `EventBrokers` for different things...
 
