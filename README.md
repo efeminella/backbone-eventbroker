@@ -168,7 +168,7 @@ var Users = Backbone.Collection.extend({
             'user:edit'     : 'edit'
           , 'user:update'   : 'update'
           , 'user:remove'   : 'remove'
-        } : {} );
+        } : {} ));
     },
     initialize: function() {
       // register this object with the EventBroker
