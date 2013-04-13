@@ -16,11 +16,13 @@
          * for specific objects registered with an EventBroker.
          */
         var _registration = function(interests, context, broker, method) {
+            var events;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
-            _.each(interests, function(callback, event){
+            events = _.isFunction(interests) ? interests() : interests;
+            _.each( events, function(callback, event){
                 var cb = context[callback]
                 if ( _.isFunction(cb) ) {
                     broker[method](event, cb, context);

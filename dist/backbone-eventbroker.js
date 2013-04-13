@@ -1,5 +1,5 @@
 /*
- * Backbone Eventbroker v1.0.0
+ * Backbone Eventbroker v1.1.0
  *
  * Copyright (c) 2012  - 2013 Eric Feminella, Sven Lito
  * License and more information at: http://code.ericfeminella.com/license/LICENSE.txt
@@ -25,11 +25,13 @@
          * for specific objects registered with an EventBroker.
          */
         var _registration = function(interests, context, broker, method) {
+            var events;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
-            _.each(interests, function(callback, event){
+            events = _.isFunction(interests) ? interests() : interests;
+            _.each( events, function(callback, event){
                 var cb = context[callback]
                 if ( _.isFunction(cb) ) {
                     broker[method](event, cb, context);

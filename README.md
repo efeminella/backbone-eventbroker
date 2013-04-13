@@ -154,6 +154,36 @@ var Users = Backbone.Collection.extend({
     remove: function() { ... }
 });
 ```
+Objects can also implement their "interests" as a function which returns an object of specific event/callback mappings, allowing for runtime configurations of interests:
+
+``` javascript
+// Register event/callbacks based on a hash and associated context
+var Users = Backbone.Collection.extend({
+    // defines events of interest and their corresponding callbacks
+    this.interests: function(){
+        return _.extend({
+            'user:select'   : 'select'
+          , 'user:deselect' : 'deselect'
+        }, ( this.isAdmin() ? {
+                'user:select'   : 'select'
+              , 'user:deselect' : 'deselect'
+              , 'user:edit'     : 'edit'
+              , 'user:update'   : 'update'
+              , 'user:remove'   : 'remove'
+        } : {} );
+    },
+    initialize: function() {
+      // register this object with the EventBroker
+      Backbone.EventBroker.register( this );
+    },
+    select: function() { ... },
+    deselect: function() { ... },
+    edit: function() { ... },
+    update: function() { ... },
+    remove: function() { ... }
+});
+```
+
 As of version 1.0.0, if a given callback is not a function, the EventBroker will throw an exception, similar to declaratively mapping an event callback in a Backbone.View.
 
 Modules can use different namespaced `EventBrokers` for different things...

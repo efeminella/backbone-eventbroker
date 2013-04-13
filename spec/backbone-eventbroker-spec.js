@@ -216,5 +216,22 @@ describe('EventBroker', function()
                 expect(_.isEmpty(this.users.users)).toBeTruthy(this.user);
             });
         });
+
+        describe('when registering interests implemented as a function', function() {
+            it ('should register each event / callback mapping', function() {
+                spyOn(this.users, 'remove');
+                this.interests = function(){
+                    return {
+                        'users:add': 'add',
+                        'users:delete': 'remove'
+                    }
+                };
+                this.broker.register(this.interests, this.users);
+                this.broker.trigger('users:delete', this.user);
+                expect(this.users.remove).toHaveBeenCalled();
+                expect(this.users.remove).toHaveBeenCalledWith(this.user);
+                expect(this.users.users[this.user.id]).toBeUndefined();
+            });
+        });
     });
 });

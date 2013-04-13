@@ -1,5 +1,5 @@
 /*
- * Backbone Eventbroker v1.0.0
+ * Backbone Eventbroker v1.1.0
  *
  * This version is for use with RequireJS
  * If using regular <script> tags to include your files, use backbone-memory.min.js
@@ -33,11 +33,13 @@ define( function($, Backbone, _) {
          * for specific objects registered with an EventBroker.
          */
         var _registration = function(interests, context, broker, method) {
+            var events;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
-            _.each(interests, function(callback, event){
+            events = _.isFunction(interests) ? interests() : interests;
+            _.each( events, function(callback, event){
                 var cb = context[callback]
                 if ( _.isFunction(cb) ) {
                     broker[method](event, cb, context);
