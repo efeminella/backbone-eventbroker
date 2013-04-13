@@ -165,11 +165,9 @@ var Users = Backbone.Collection.extend({
             'user:select'   : 'select'
           , 'user:deselect' : 'deselect'
         }, ( this.isAdmin() ? {
-                'user:select'   : 'select'
-              , 'user:deselect' : 'deselect'
-              , 'user:edit'     : 'edit'
-              , 'user:update'   : 'update'
-              , 'user:remove'   : 'remove'
+            'user:edit'     : 'edit'
+          , 'user:update'   : 'update'
+          , 'user:remove'   : 'remove'
         } : {} );
     },
     initialize: function() {
