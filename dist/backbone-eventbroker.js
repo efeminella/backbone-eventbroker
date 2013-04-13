@@ -25,21 +25,18 @@
          * for specific objects registered with an EventBroker.
          */
         var _registration = function(interests, context, broker, method) {
-            var event, callback;
             if (!context && interests.interests) {
                 context   = interests;
                 interests = interests.interests;
             }
-            for ( event in interests ) {
-                if ( interests.hasOwnProperty(event) ) {
-                    callback = context[interests[event]]
-                    if ( _.isFunction(callback) ) {
-                        broker[method](event, callback, context);
-                    } else {
-                        throw new Error('method \'' + interests[event] + '\' not found for event \'' + event + '\'');
-                    }
+            _.each(interests, function(callback, event){
+                var cb = context[callback]
+                if ( _.isFunction(cb) ) {
+                    broker[method](event, cb, context);
+                } else {
+                    throw new Error("method '" + interests[event] + "' not found for event '" + event + "'");
                 }
-            }
+            });
             return broker;
         };
 
@@ -156,7 +153,7 @@
              * </pre>
              *
              */
-            unregister: function( interests, context ) {
+            unregister: function(interests, context) {
                 return interests || context ? _registration(interests, context, this, 'off') : this;
             }
         };
@@ -178,11 +175,11 @@
              * a reference to the same broker; that is, only one unique broker will
              * be created per namespace.
              */
-            get: function( namespace ) {
-                if ( _brokers[ namespace ] === undefined ) {
-                    _brokers[ namespace ] = _.extend( { 'namespace': namespace }, Backbone.Events, EventRegistry );
+            get: function(namespace) {
+                if (!this.has(namespace)) {
+                    _brokers[namespace] = _.extend({'namespace': namespace}, Backbone.Events, EventRegistry);
                 }
-                return _brokers[ namespace ];
+                return _brokers[namespace];
             },
 
             /*
@@ -190,8 +187,8 @@
              * namespace.
              *
              */
-            has: function( namespace ) {
-                return _brokers[ namespace ] !== undefined;
+            has: function(namespace) {
+                return typeof _brokers[namespace] !== 'undefined';
             },
 
             /*
@@ -201,16 +198,14 @@
              * no arguments.
              *
              */
-            destroy: function( namespace ) {
-                if ( !namespace ) {
-                    for ( namespace in _brokers ) {
-                        if ( _brokers.hasOwnProperty( namespace ) ) {
-                            this.destroy( namespace );
-                        }
-                    }
-                } else if ( _brokers[ namespace ] ) {
-                    _brokers[ namespace ].off();
-                    delete _brokers[ namespace ];
+            destroy: function(namespace) {
+                if (!namespace) {
+                    _.each(_brokers, function(broker, ns){
+                        this.destroy(ns);
+                    }, this );
+                } else if (this.has(namespace)) {
+                    _brokers[namespace].off();
+                    delete _brokers[namespace];
                 }
                 return this;
             }
