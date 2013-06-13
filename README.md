@@ -67,21 +67,17 @@ var UserEditor = Backbone.View.extend({
     // also use the 'roles' broker
     rolesBroker: Backbone.EventBroker.get('roles'),
 
-    initialize: function(broker){
-      this.$userId = this.$('.user-id');
-      this.$roleType = this.$('.user-id');
-    },
     addUser: function(evt) {
       // publish an event to the usersBroker
       this.usersBroker.trigger('add', new User({
-           'id': this.$userId().val()
+           'id': this.$('.user-id').val()
            //other values ...
       }));
     },
     addRole: function(evt) {
       // publish an event to the rolesBroker
       this.rolesBroker.trigger('add', new Role({
-           'type': this.$roleType().val()
+           'type': this.$('.user-id').val()
       }));
     }
 };
@@ -116,21 +112,17 @@ var UserEditor = Backbone.View.extend({
     // also use the 'roles' broker
     rolesBroker: Backbone.EventBroker.get('roles'),
 
-    initialize: function(broker){
-      this.$userId = this.$('.user-id');
-      this.$roleType = this.$('.user-id');
-    },
     addUser: function(evt) {
       // publish an event to the usersBroker
       this.usersBroker.trigger('users:add', new User({
-           'id': this.$userId().val()
+           'id': this.$('.user-id').val()
            //other values ...
       }));
     },
     addRole: function(evt) {
       // publish an event to the rolesBroker
       this.rolesBroker.trigger('roles:add', new Role({
-           'type': this.$roleType().val()
+           'type': this.$('.user-id').val()
       }));
     }
 };
