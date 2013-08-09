@@ -110,6 +110,22 @@ describe('EventBroker', function()
         });
     });
 
+    describe('trigger override', function() {
+        it ('should throw an error if called with undefined', function() {
+            expect(function() {
+                EventBroker.trigger();
+            }).toThrow(new Error('Backbone.EventBroker.trigger invoked with null or undefined event'));
+        });
+        it ('should throw an error if called with null', function() {
+            expect(function() {
+                EventBroker.trigger(null);
+            }).toThrow(new Error('Backbone.EventBroker.trigger invoked with null or undefined event'));
+        });
+        it ('should execute trigger if a non null, defined value is provided', function() {
+            expect(EventBroker.trigger('test')).toBeTruthy();
+        });
+    });
+
     describe('when registering events via .on', function(){
         it ('should register an event for the given callback and context', function() {
             var client = {

@@ -16,7 +16,10 @@
      * namespaced brokers can also be created in order to provide unique brokers
      * within a particular part of an application.
      */
-    Backbone.EventBroker = Backbone.EventBroker || ( function() {
+    Backbone.EventBroker = Backbone.EventBroker || (function() {
+        // Defines a reference to the native Backbone.Events.trigger method
+        var _trigger = Backbone.Events.trigger;
+
         // Defines the cache which contains each namespaced EventBroker instance
         var _brokers = {};
 
@@ -211,7 +214,19 @@
                 }
                 return this;
             }
-        }, Backbone.Events, EventRegistry );
+        }, Backbone.Events, EventRegistry, {
+            /*
+             * Override Backbone.Events.Trigger to ensure an event name is provided,
+             * if so, forward arguments to native implementation, otherwise, throw
+             * an error.
+             */
+            trigger: function(name) {
+                if (name !== null && name !== void 0) {
+                    return _trigger.apply(this, [].slice.call(arguments));
+                }
+                throw new Error('Backbone.EventBroker.trigger invoked with null or undefined event');
+            },
+        });
     }());
     // exports ...
     // AMD (RequireJS) - For exporting as a module when Backbone and jQuery are on the page
