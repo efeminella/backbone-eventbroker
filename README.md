@@ -273,3 +273,16 @@ broker.has('permissions' ); //false
 broker.has('users'); //false
 broker.has('roles'); //false
 ```
+
+As of version 1.1.1, invoking EventBroker.trigger with null or undefined will result in an error being thrown. This can help mitigate tracking down unhandled events due to erroneously undefined event names being referenced.
+
+``` javascript
+var Events = {
+    LOGIN: 'authentication:login'
+};
+// Events.LOGIN exist is defined
+Backbone.EventBroker.trigger(Events.LOGIN); // triggers
+
+// Events.LOGOUT is undefined
+Backbone.EventBroker.trigger(Events.AUTHENTICATION); // error thrown
+```
