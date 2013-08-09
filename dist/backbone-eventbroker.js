@@ -17,10 +17,10 @@
      * within a particular part of an application.
      */
     Backbone.EventBroker = Backbone.EventBroker || (function() {
-        // Defines a reference to the native Backbone.Events.trigger method
+        // Define a reference to Backbone.Events.trigger method
         var _trigger = Backbone.Events.trigger;
 
-        // Defines the cache which contains each namespaced EventBroker instance
+        // Define the cache which contains each namespaced EventBroker instance
         var _brokers = {};
 
         /*
