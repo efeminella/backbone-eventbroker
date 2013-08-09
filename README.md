@@ -45,7 +45,6 @@ Namespaced `EventBrokers` are retrieved via `Backbone.EventBroker.get([namespace
 var Users = Backbone.Collection.extend{{
     // use the 'users' broker
     usersBroker: Backbone.EventBroker.get('users'),
-
     initialize: function(broker){
       this.listenTo(this.usersBroker, 'add', this.add);
     },
@@ -60,10 +59,8 @@ var UserEditor = Backbone.View.extend({
         'click .add-user' : 'addUser'
       , 'click .add-role' : 'addRole'
     },
-
     // use the 'users' broker
     usersBroker: Backbone.EventBroker.get('users'),
-
     // also use the 'roles' broker
     rolesBroker: Backbone.EventBroker.get('roles'),
 
@@ -105,10 +102,8 @@ var UserEditor = Backbone.View.extend({
         'click .add-user' : 'addUser'
       , 'click .add-role' : 'addRole'
     },
-
     // use the 'users' broker
     usersBroker: Backbone.EventBroker.get('users'),
-
     // also use the 'roles' broker
     rolesBroker: Backbone.EventBroker.get('roles'),
 
@@ -158,11 +153,11 @@ Alternatively, modules can define an "interests" property which provides specifi
 var Users = Backbone.Collection.extend({
     // defines events of interest and their corresponding callbacks
     interests: {
-      'user:select'   : 'select',
-      'user:deselect' : 'deselect',
-      'user:edit'     : 'edit',
-      'user:update'   : 'update',
-      'user:remove'   : 'remove'
+        'user:select'   : 'select'
+      , 'user:deselect' : 'deselect'
+      , 'user:edit'     : 'edit'
+      , 'user:update'   : 'update'
+      , 'user:remove'   : 'remove'
     },
     initialize: function() {
       // register this object with the EventBroker
@@ -219,15 +214,15 @@ var CartView = Backbone.View.extend({
     initialize: function() {
       // register events/callbacks with 'items' EventBroker...
       this.itemsBroker.register({
-        'add'      : 'add',
-        'update'   : 'update',
-        'remove'   : 'remove'
+        'add'      : 'add'
+      , 'update'   : 'update'
+      , 'remove'   : 'remove'
       }, this );
       // register events/callbacks with 'inventory' EventBroker...
       this.inventoryBroker.register({
-        'select'   : 'select',
-        'deselect' : 'deselect',
-        'edit'     : 'edit'
+        'select'   : 'select'
+      , 'deselect' : 'deselect'
+      , 'edit'     : 'edit'
       }, this );
     },
     add: function() { ... },
