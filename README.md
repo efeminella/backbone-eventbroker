@@ -274,6 +274,7 @@ broker.has('users'); //false
 broker.has('roles'); //false
 ```
 
+### Undefined and null Events
 As of version 1.1.1, invoking EventBroker.trigger with null or undefined will result in an error being thrown. This can help mitigate tracking down unhandled events due to erroneously undefined event names being referenced.
 
 ``` javascript
