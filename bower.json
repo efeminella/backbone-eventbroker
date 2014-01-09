@@ -1,0 +1,14 @@
+{
+  "name": "backbone-eventbroker",
+  "version": "1.1.1",
+  "main": "./src/backbone-eventbroker.js",
+  "ignore": [
+    "**/.*",
+    "dist",
+    "build",
+    "package.json",
+    "spec",
+    "examples",
+    "vendor"
+  ]
+}
