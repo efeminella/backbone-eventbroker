@@ -1,6 +1,5 @@
 
-describe('EventBroker', function()
-{
+describe('EventBroker', function() {
     // cache a local reference to the EventBroker...
     var EventBroker = Backbone.EventBroker;
 
@@ -8,11 +7,12 @@ describe('EventBroker', function()
     beforeEach( function() {
         // add utility matcher for each expect call
         addMatchers({
-            toStrictlyEqual : function(expected) {
+            'toStrictlyEqual': function(expected) {
                 return this.actual === expected;
             }
         });
-        // reset the EventBroker after each spec
+    });
+    afterEach(function(){
         EventBroker.destroy();
     });
 
@@ -46,16 +46,15 @@ describe('EventBroker', function()
                 expect(broker[name]).toBeTruthy();
             }, this);
         });
-
         it ('should create a unique broker per namespace', function() {
-            var broker1 = EventBroker.get('ns1'), broker2 = EventBroker.get('ns2');
-            expect(broker2).not.toStrictlyEqual(broker1);
+            var ns1 = EventBroker.get('ns1')
+              , ns2 = EventBroker.get('ns2');
+            expect(ns1).not.toStrictlyEqual(ns2);
         });
-
         it ('should only create one unique broker per namespace', function() {
             var broker1 = EventBroker.get('someBroker')
               , broker2 = EventBroker.get('someBroker');
-            expect(broker2).toStrictlyEqual(broker1);
+            expect(broker1).toStrictlyEqual(broker2);
         });
     });
 
@@ -67,7 +66,6 @@ describe('EventBroker', function()
             var broker1 = EventBroker.get('ns1');
             expect(EventBroker.has('ns1')).toBeTruthy();
         });
-
     });
 
     describe('destroy', function() {
@@ -128,13 +126,9 @@ describe('EventBroker', function()
 
     describe('when registering events via .on', function(){
         it ('should register an event for the given callback and context', function() {
-            var client = {
-                test: function(){
-                }
-            };
+            var client = {'test': function(){}};
             spyOn(client, 'test');
             EventBroker.on('some:event', client.test, client);
-
             EventBroker.trigger('some:event', 'test');
             expect(client.test).toHaveBeenCalledWith('test');
         });
@@ -142,9 +136,7 @@ describe('EventBroker', function()
 
     describe('when unregistering events via .off', function(){
         it ('should unregister an event from the given callback and context', function() {
-            var client = {
-                test: function(){}
-            };
+            var client = {'test': function(){}};
             spyOn(client, 'test');
             EventBroker.on('some:event', client.test, client);
             EventBroker.off('some:event', client.test, client);
@@ -154,17 +146,15 @@ describe('EventBroker', function()
     });
 
     describe('interests', function() {
+        var broker, interests, users, user;
         beforeEach(function() {
-            this.broker = EventBroker;
-
-            this.interests = {
+            broker = EventBroker;
+            interests = {
                 'users:add': 'add',
                 'users:delete': 'remove'
             };
-            this.user = {
-                'id': '123'
-            };
-            this.users = {
+            user = {'id': '123'};
+            users = {
                 'users': {},
                 'add': function(user) {
                     this.users[user.id] = user;
@@ -173,34 +163,37 @@ describe('EventBroker', function()
                     delete this.users[user.id];
                 }
             };
-            this.broker.off('users:add', this.users.add, this.users);
-            this.broker.off('users:delete', this.users.add, this.remove);
+        });
+
+        afterEach(function(){
+            broker.off('users:add', users.add, users.users);
+            broker.off('users:delete', users.add, users.remove);
         });
 
         describe('when registering explicit interests', function() {
             it ('should register each event / callback mapping', function() {
-                spyOn(this.users, 'remove');
-                this.broker.register(this.interests, this.users);
-                this.broker.trigger('users:delete', this.user);
-                expect(this.users.remove).toHaveBeenCalled();
-                expect(this.users.remove).toHaveBeenCalledWith(this.user);
-                expect(this.users.users[this.user.id]).toBeUndefined();
+                spyOn(users, 'remove');
+                broker.register(interests, users);
+                broker.trigger('users:delete', user);
+                expect(users.remove).toHaveBeenCalled();
+                expect(users.remove).toHaveBeenCalledWith(user);
+                expect(users.users[user.id]).toBeUndefined();
             });
         });
 
         describe('when unregistering explicit interests', function() {
             it ('should unregister each event / callback mappings', function() {
-                this.broker.unregister(this.interests, this.users);
-                this.broker.trigger('users:add', this.user);
-                expect(_.isEmpty(this.users.users)).toBeTruthy(this.user);
+                broker.unregister(interests, users);
+                broker.trigger('users:add', user);
+                expect(_.isEmpty(users.users)).toBeTruthy(user);
             });
         });
 
         describe('registering interests for undefined methods', function() {
             it ('should throw an exception if the given callback is not a function', function() {
                 var interests = {'users:update':'update'}
-                  , context   = this.users
-                  , wrapper   = function(){EventBroker.register(interests, context)};
+                  , wrapper   = function(){EventBroker.register(interests, context)}
+                  , context   = users;
 
                 expect(wrapper).toThrow(new Error("method 'update' not found for event 'users:update'"));
                 context.update = '';
@@ -212,41 +205,41 @@ describe('EventBroker', function()
 
         describe('registering implied interests', function() {
             it ('should register all event/callback mappings', function() {
-                this.users.interests = this.interests;
-                this.broker.register(this.users);
+                users.interests = interests;
+                broker.register(users);
 
-                this.broker.trigger('users:add', this.user);
-                expect(this.users.users[this.user.id]).toEqual(this.user);
+                broker.trigger('users:add', user);
+                expect(users.users[user.id]).toEqual(user);
 
-                this.broker.trigger('users:delete', this.user);
-                expect(this.users.users[this.user.id]).toBeUndefined();
+                broker.trigger('users:delete', user);
+                expect(users.users[user.id]).toBeUndefined();
             });
         });
 
         describe('when unregistering implied interests', function() {
             it ('should unregister all event/callback mappings', function() {
-                this.users.interests = this.interests;
-                this.broker.register(this.users).unregister(this.users);
+                users.interests = interests;
+                broker.register(users).unregister(users);
 
-                this.broker.trigger('users:add', this.user);
-                expect(_.isEmpty(this.users.users)).toBeTruthy(this.user);
+                broker.trigger('users:add', user);
+                expect(_.isEmpty(users.users)).toBeTruthy(user);
             });
         });
 
         describe('when registering interests implemented as a function', function() {
             it ('should register each event / callback mapping', function() {
-                spyOn(this.users, 'remove');
-                this.interests = function(){
+                spyOn(users, 'remove');
+                interests = function(){
                     return {
                         'users:add': 'add',
                         'users:delete': 'remove'
                     }
                 };
-                this.broker.register(this.interests, this.users);
-                this.broker.trigger('users:delete', this.user);
-                expect(this.users.remove).toHaveBeenCalled();
-                expect(this.users.remove).toHaveBeenCalledWith(this.user);
-                expect(this.users.users[this.user.id]).toBeUndefined();
+                broker.register(interests, users);
+                broker.trigger('users:delete', user);
+                expect(users.remove).toHaveBeenCalled();
+                expect(users.remove).toHaveBeenCalledWith(user);
+                expect(users.users[user.id]).toBeUndefined();
             });
         });
     });
