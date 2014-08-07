@@ -284,6 +284,6 @@ var Events = {
 // Events.LOGIN is defined
 Backbone.EventBroker.trigger(Events.LOGIN); // triggers
 
-// Events.LOGOUT is undefined
+// Events.AUTHENTICATION is undefined, thus triggering the EventBroker results in an exception being thrown
 Backbone.EventBroker.trigger(Events.AUTHENTICATION); // error thrown
 ```
