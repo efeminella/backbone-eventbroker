@@ -281,7 +281,7 @@ As of version 1.1.1, invoking EventBroker.trigger with null or undefined will re
 var Events = {
     LOGIN: 'login'
 };
-// Events.LOGIN is defined
+// Events.LOGIN is defined, thus the event is successfully triggered
 Backbone.EventBroker.trigger(Events.LOGIN); // triggers
 
 // Events.AUTHENTICATION is undefined, thus an exception is thrown
